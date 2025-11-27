@@ -7,3 +7,4 @@ Created on Mon Nov 24 18:14:42 2025
 """
 
 #represents digestive system
+import ace_global_vars as ace

@@ -8,6 +8,10 @@ Created on Mon Nov 24 18:15:15 2025
 
 #Represents Blood Stream
 
+#Imports
+import ace_global_vars as ace
+import numpy as np
+
 #Variables
 ace_in_sys = 0           #   Acetaminophen in the system
 

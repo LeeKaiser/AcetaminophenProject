@@ -9,7 +9,7 @@ Created on Mon Nov 24 18:15:15 2025
 #Represents Blood Stream
 
 #Imports
-import ace_global_vars as ace
+import ace_global_vars as ACE
 import numpy as np
 
 #Variables
@@ -20,3 +20,5 @@ ace_glu_in_sys = 0       #   acetaminophen glucuronide in system
 ace_sulf_in_sys = 0      #   acetaminophen sulfate in system
 NAPQI_Glu_in_sys = 0     #   NAPQI glutathione conjugates in system
 
+def step():
+    print("step in blood stream")

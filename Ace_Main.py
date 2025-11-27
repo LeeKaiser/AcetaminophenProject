@@ -9,14 +9,18 @@ Created on Mon Nov 24 18:12:51 2025
 # Main file for the Acetaminophen Simulation Project
 
 # Import all other files and modules
-
+import numpy as np
+import ace_global_vars as ace
 
 # Initialize constant variables
 time = 5                    #   amount of time in simulation
 time_interval = 0.1         #   amount of time passed per interval (total time steps = time/time_interval)
 
-dose_interval = 1           #   amount of time between dose
-dose_count = 3              #   amount of dose taken
-dose_amount = 0.150         #   amount taken per dose in [unit]
-
 # 
+
+#initialize all time steps
+time_steps = np.arange(0,time,time_interval)
+
+#iterate through each time step to run parts of simulation
+for i in time_steps:
+    print("T: " , i)

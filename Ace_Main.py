@@ -27,5 +27,5 @@ time_steps = np.arange(0,time,time_interval)
 #iterate through each time step to run parts of simulation
 for i in time_steps:
     print("T: " , i)
-    DS.step(60 * time_interval)
-    BS.step_ace_to_liver()
+    Ace_to_blood = DS.step(60 * time_interval)
+    Ace_to_liver = BS.step_ace_to_liver(Ace_to_blood)

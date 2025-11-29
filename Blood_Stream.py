@@ -38,6 +38,9 @@ def step_ace_to_liver(absorbedAmount = 0):
     #print("blood stream takes metabolites from liver")
     #print("blood stream sends metabolites to kidneys")
     
+"""
+returns the change in acetaminophen between blood and liver
+"""
 def dAldt():
     #get change of acetaminophen in liver over change in time
     blood_volume = 5.0
@@ -52,14 +55,21 @@ def dAldt():
     
     return Q_liver * (C_plasma - C_blood_equiv_from_liver)
 
+"""
+get amount of acetaminophen that would be changed within time step.
+if the time step is too large, it would be divided into mini steps
+with each mini step representing 0.005 hour
+"""
 def change_in_ace():
-    """get amount of acetaminophen that would be changed within time step, with each mini step representing 1 minute"""
+    
     global ace_in_sys, ace_in_liver
     total_change = 0
     if ace_in_sys <= 0:
+        #skip if there are no acetaminophen
         return 0
+    #if time step is too large, then divide it into mini steps to get accurate change
     if ACE.time_interval > 0.01:
-        time_mini_steps = np.arange(0,ACE.time_interval, 0.01)
+        time_mini_steps = np.arange(0,ACE.time_interval, 0.005)
         for i in time_mini_steps:
             change = dAldt() * 0.01
             total_change += change
@@ -67,8 +77,9 @@ def change_in_ace():
             ace_in_liver += change
             if ace_in_sys <= 0:
                 continue
-            #print(change)
+        
     else:
+        #just do 1 step
         total_change += dAldt() * ACE.time_interval
         ace_in_sys -= total_change
     return total_change

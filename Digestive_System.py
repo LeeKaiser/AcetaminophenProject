@@ -34,7 +34,7 @@ administers a dose to the stomach, amount is determined by global vars
 def giveDose():
     global stomachDoses, dosesTaken
     
-    mg = ACE.dose_amount * 1000.0
+    mg = ACE.dose_amount
     stomachDoses.append([simTime, mg])
     dosesTaken += 1
 

@@ -32,10 +32,10 @@ def step(time=30):
 administers a dose to the stomach, amount is determined by global vars
 """
 def giveDose():
-    global aceInStomach, dosesTaken
+    global stomachDoses, dosesTaken
     
     mg = ACE.dose_amount * 1000.0
-    aceInStomach += mg
+    stomachDoses.append([simTime, mg])
     dosesTaken += 1
 
 """

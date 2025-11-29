@@ -15,8 +15,9 @@ import Digestive_System as DS
 import Blood_Stream as BS
 
 # Initialize constant variables
-time = 5                    #   amount of time in simulation (hours)
-time_interval = 0.1         #   amount of time passed per interval (total time steps = time/time_interval)
+time = ACE.time                   #   amount of time in simulation
+time_interval = ACE.time_interval        #   amount of time passed per interval (total time steps = time/time_interval)
+
 
 # 
 

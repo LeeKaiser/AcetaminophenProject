@@ -23,6 +23,7 @@ ace_glu_in_sys = 0       #   acetaminophen glucuronide in system
 ace_sulf_in_sys = 0      #   acetaminophen sulfate in system
 NAPQI_glu_in_sys = 0     #   NAPQI glutathione conjugates in system
 
+
 def step_ace_to_liver(absorbedAmount = 0):
     global ace_in_sys
     print("blood stream recieves acetaminophen from digestive system")
@@ -71,4 +72,4 @@ def change_in_ace():
         total_change += dAldt() * ACE.time_interval
         ace_in_sys -= total_change
     return total_change
-    
+

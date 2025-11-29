@@ -27,4 +27,4 @@ time_steps = np.arange(0,time,time_interval)
 for i in time_steps:
     print("T: " , i)
     DS.step()
-    BS.step()
+    BS.step_ace_to_liver()

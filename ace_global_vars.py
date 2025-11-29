@@ -14,6 +14,7 @@ dose_interval = 1           #   amount of time between dose
 dose_count = 3              #   amount of dose taken
 dose_amount = 150           #   amount taken per dose in mg
 
+
 liver_volume = 1.5          #   volume of liver  in liters
 liver_blood_flow = 90      #   liver blood flow in liter per hr
 liver_blood_volume = 1.5    #   volume of blood in liver in liter

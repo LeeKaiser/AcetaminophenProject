@@ -18,6 +18,7 @@ import Blood_Stream as BS
 time = ACE.time                   #   amount of time in simulation
 time_interval = ACE.time_interval        #   amount of time passed per interval (total time steps = time/time_interval)
 
+
 # 
 
 #initialize all time steps
@@ -26,5 +27,5 @@ time_steps = np.arange(0,time,time_interval)
 #iterate through each time step to run parts of simulation
 for i in time_steps:
     print("T: " , i)
-    DS.step()
+    DS.step(60 * time_interval)
     BS.step_ace_to_liver()

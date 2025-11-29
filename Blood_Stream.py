@@ -11,11 +11,12 @@ Created on Mon Nov 24 18:15:15 2025
 #Imports
 import ace_global_vars as ACE
 import numpy as np
-import Liver as L
 
 #Variables
 
-ace_in_sys = 100           #   Acetaminophen in the system
+ace_in_sys = 0           #   Acetaminophen in the system
+
+ace_in_liver = 0        #   known amount of acetaminophen in the liver
 
 #These metabolites enter the blood stream instantly
 ace_glu_in_sys = 0       #   acetaminophen glucuronide in system
@@ -30,14 +31,16 @@ def step_ace_to_liver(absorbedAmount = 0):
     change = change_in_ace()
     
     
-    print("change in ace: ", change, "ace in blood: " , ace_in_sys, "ace in liver: ", L.ace_in_sys)
+    print("change in ace: ", change, "ace in blood: " , ace_in_sys, "ace in liver: ", ace_in_liver)
+    
+    return change
     #print("blood stream takes metabolites from liver")
     #print("blood stream sends metabolites to kidneys")
     
 def dAldt():
     #get change of acetaminophen in liver over change in time
     blood_volume = 5.0
-    A_liver = L.ace_in_sys
+    A_liver = ace_in_liver
     Q_liver = ACE.liver_blood_flow
     Kp_liver = ACE.ace_partition_coeff
     V_liver = ACE.liver_volume
@@ -50,7 +53,7 @@ def dAldt():
 
 def change_in_ace():
     """get amount of acetaminophen that would be changed within time step, with each mini step representing 1 minute"""
-    global ace_in_sys
+    global ace_in_sys, ace_in_liver
     total_change = 0
     if ace_in_sys <= 0:
         return 0
@@ -60,7 +63,7 @@ def change_in_ace():
             change = dAldt() * 0.01
             total_change += change
             ace_in_sys -= change
-            L.ace_in_sys += change
+            ace_in_liver += change
             if ace_in_sys <= 0:
                 continue
             #print(change)

@@ -31,6 +31,8 @@ def step(change_in_ace = 0):
     metabolism()
     print("then NAPQI is detoxified to NAPQI_glu")
     
+    return ace_in_sys, ace_glu_gen, ace_sulf_gen, NAPQI_glu_gen, NAPQI_in_sys
+    
 """
 glu_rate_of_met
 
@@ -68,6 +70,6 @@ def metabolism():
     
     change_in_ace = change_in_glu + change_in_sulf
     
-    ace_glu_gen += change_in_glu
-    ace_sulf_gen += change_in_sulf
+    ace_glu_gen = change_in_glu
+    ace_sulf_gen = change_in_sulf
     ace_in_sys -= change_in_ace

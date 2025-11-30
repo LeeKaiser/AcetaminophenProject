@@ -30,4 +30,6 @@ for i in time_steps:
     print("T: " , i)
     ace_to_blood = DS.step(60 * time_interval)
     ace_to_liver = BS.step_ace_to_liver(ace_to_blood)
-    L.step(ace_to_liver)
+    ace_in_liv, ace_glu_gen, ace_sulf_gen, NAPQI_glu_gen, NAPQI_in_liv = L.step(ace_to_liver)
+    
+    BS.step_met_to_kidneys(ace_in_liv, ace_glu_gen, ace_sulf_gen)

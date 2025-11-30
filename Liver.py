@@ -58,6 +58,30 @@ def sulf_rate_of_met():
     return (sulf_max_met * liver_drug_con) / (sulf_drug_con + liver_drug_con)
 
 """
+returns p450 processing rate
+"""
+def p450_rate_of_met():
+    liver_drug_con = ace_in_sys /ACE.liver_volume
+    p450_max = ACE.p450_max_met_rate
+    p450_km = ACE.p450_drug_con
+    return (p450_max * liver_drug_con) / (p450_km + liver_drug_con)
+
+"""
+returns detoxification rate of NAPQI
+"""
+def detox_rate_of_NAPQI():
+    if ACE.GSH_amount <= ACE.GSH_baseline * ACE.GSH_min_threshold:
+        return 0.0
+    
+    GSH_con = ACE.GSH_amount
+    GSH_km = ACE.GSH_km
+    detox_max = ACE.NAPQI_detox_max_rate
+    
+    rate = (detox_max * GSH_con) / (GSH_km + GSH_con)
+    
+    return min(rate, NAPQI_in_sys / ACE.liver_volume)
+
+"""
 metabolism
 
 conduct a time step of metabolism
@@ -67,9 +91,24 @@ def metabolism():
     
     change_in_glu = glu_rate_of_met() * ACE.time_interval
     change_in_sulf = sulf_rate_of_met() * ACE.time_interval
+    change_in_p450 = p450_rate_of_met() * ACE.time_interval
     
-    change_in_ace = change_in_glu + change_in_sulf
+    
+    change_in_ace = change_in_glu + change_in_sulf + change_in_p450
+    
     
     ace_glu_gen = change_in_glu
     ace_sulf_gen = change_in_sulf
+    NAPQI_in_sys += change_in_p450
     ace_in_sys -= change_in_ace
+    ace_in_sys = max(0, ace_in_sys)
+    
+    detox_rate = detox_rate_of_NAPQI() * ACE.time_interval
+    NAPQI_glu_gen = detox_rate
+    
+    NAPQI_in_sys -= detox_rate
+    NAPQI_in_sys = max(0, NAPQI_in_sys)
+    
+    if detox_rate > 0:
+        ACE.GSH_amount -= detox_rate
+        ACE.GSH_amount = max(0, ACE.GSH_amount)

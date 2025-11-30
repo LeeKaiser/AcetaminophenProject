@@ -23,7 +23,9 @@ ace_glu_in_sys = 0       #   acetaminophen glucuronide in system
 ace_sulf_in_sys = 0      #   acetaminophen sulfate in system
 NAPQI_glu_in_sys = 0     #   NAPQI glutathione conjugates in system
 
-
+"""
+step before liver metabolization
+"""
 def step_ace_to_liver(absorbedAmount = 0):
     global ace_in_sys
     print("blood stream recieves acetaminophen from digestive system")
@@ -37,6 +39,19 @@ def step_ace_to_liver(absorbedAmount = 0):
     return change
     #print("blood stream takes metabolites from liver")
     #print("blood stream sends metabolites to kidneys")
+    
+    
+"""
+step after liver metabolization
+"""
+def step_met_to_kidneys(liver_ace_after_met = 0, new_ace_glu = 0, new_ace_sulf = 0):
+    global ace_in_liver, ace_glu_in_sys, ace_sulf_in_sys
+    ace_in_liver = liver_ace_after_met
+    ace_glu_in_sys += new_ace_glu
+    ace_sulf_in_sys += new_ace_sulf
+    #print("blood stream takes metabolites from liver")
+    #print("blood stream sends metabolites to kidneys")
+    
     
 """
 returns the change in acetaminophen between blood and liver

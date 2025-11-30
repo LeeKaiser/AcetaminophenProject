@@ -19,3 +19,8 @@ liver_volume = 1.5          #   volume of liver  in liters
 liver_blood_flow = 90      #   liver blood flow in liter per hr
 liver_blood_volume = 1.5    #   volume of blood in liver in liter
 ace_partition_coeff = 0.669 #   partition coefficient of acetaminophen 
+
+glu_max_met_rate = 145      #   glucuronidation max metabolic rate in mg/hr
+glu_drug_con = 220          #   glucuronidation drug concentration in mg/L
+sulf_max_met_rate = 65      #   sulfation max metabolic rate in mg/hr
+sulf_drug_con = 20          #   sulfation drug concentration in mg/L

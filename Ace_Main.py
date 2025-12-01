@@ -58,6 +58,11 @@ plt.plot(time_steps, blood_ace_list, label='blood acetaminophen')
 plt.plot(time_steps, liver_ace_list, label='liver acetaminophen')
 plt.plot(time_steps, ace_glu_list, label='ace-glu')
 plt.plot(time_steps, ace_sulf_list, label='ace-sulf')
+
+plt.legend()
+
+plt.show()
+
 plt.plot(time_steps, NAPQI_list, label='NAPQI')
 plt.plot(time_steps, NAPQI_glu_list, label='NAPQI-glu')
 plt.legend()

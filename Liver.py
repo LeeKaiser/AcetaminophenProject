@@ -29,6 +29,9 @@ def step(change_in_ace = 0):
     ace_in_sys += change_in_ace
     print("liver metabolizes acetaminophen to ace_glu, ace_sulf, and NAPQI")
     metabolism()
+    ethanol_clearance()
+    regen_gsh()
+    update_hepatocyte_viability()
     print("then NAPQI is detoxified to NAPQI_glu")
     
     return ace_in_sys, ace_glu_gen, ace_sulf_gen, NAPQI_glu_gen, NAPQI_in_sys
@@ -64,16 +67,30 @@ def p450_rate_of_met():
     liver_drug_con = ace_in_sys /ACE.liver_volume
     p450_max = ACE.p450_max_met_rate
     p450_km = ACE.p450_drug_con
-    return (p450_max * liver_drug_con) / (p450_km + liver_drug_con)
+    
+    E = ACE.ethanol_amount
+    induction = 1.0 + ACE.ethanol_induction_factor * (E / (ACE.ethanol_induction_k + E)) if E > 0 else 1.0
+    
+    base_rate = (p450_max * liver_drug_con) / (p450_km + liver_drug_con)
+    
+    return base_rate * induction
 
 """
 returns detoxification rate of NAPQI
 """
 def detox_rate_of_NAPQI():
-    if ACE.GSH_amount <= ACE.GSH_baseline * ACE.GSH_min_threshold:
+    global NAPQI_in_sys
+    
+    E = ACE.ethanol_amount
+    
+    ethanol_compete = ACE.ethanol_GSH_compete * (E / (ACE.ethanol_induction_k + E)) if E > 0 else 0.0
+    
+    effective_GSH = max(0.0, ACE.GSH_amount - ethanol_compete)
+    
+    if effective_GSH <= ACE.GSH_baseline * ACE.GSH_min_threshold:
         return 0.0
     
-    GSH_con = ACE.GSH_amount
+    GSH_con = effective_GSH
     GSH_km = ACE.GSH_km
     detox_max = ACE.NAPQI_detox_max_rate
     
@@ -112,3 +129,29 @@ def metabolism():
     if detox_rate > 0:
         ACE.GSH_amount -= detox_rate
         ACE.GSH_amount = max(0, ACE.GSH_amount)
+        
+    residual_conc = NAPQI_in_sys / ACE.liver_volume
+    
+    damage_increment = max(0.0, residual_conc) * ACE.toxicity_constant * ACE.time_interval
+    ACE.liver_damage += damage_increment
+    
+    
+def regen_gsh():
+    if ACE.GSH_amount < ACE.GSH_baseline:
+        diff_frac = (ACE.GSH_baseline - ACE.GSH_amount) / max(ACE.GSH_baseline, 1e-12)
+        regen = ACE.GSH_regen_rate * diff_frac * ACE.time_interval
+        ACE.GSH_amount += regen
+        
+        ACE.GSH_amount = min(ACE.GSH_amount, ACE.GSH_baseline)
+        
+def ethanol_clearance():
+    if ACE.ethanol_amount <= 0:
+        return
+    clearance = ACE.ethanol_met_rate * ACE.time_interval
+    ACE.ethanol_amount = max(0.0, ACE.ethanol_amount - clearance)
+    
+    
+def update_hepatocyte_viability():
+    ACE.hepatocyte_viability = max(0.0, 1.0 - ACE.liver_damage / max(ACE.liver_damage_threshold, 1e-12))
+    
+    

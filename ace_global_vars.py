@@ -7,12 +7,12 @@ Created on Wed Nov 26 16:24:33 2025
 """
 
 #global variables stored here to avoid circular import
-time = 5                    #   amount of time in simulation
-time_interval = 0.1         #   amount of time passed per interval (total time steps = time/time_interval)
+time = 30                    #   amount of time in simulation
+time_interval = 0.01         #   amount of time passed per interval (total time steps = time/time_interval)
 
 dose_interval = 1           #   amount of time between dose
 dose_count = 3              #   amount of dose taken
-dose_amount = 150           #   amount taken per dose in mg
+dose_amount = 5000           #   amount taken per dose in mg
 
 
 liver_volume = 1.5          #   volume of liver  in liters

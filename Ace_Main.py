@@ -43,18 +43,23 @@ for i in time_steps:
     ace_to_liver = BS.step_ace_to_liver(ace_to_blood)
     ace_in_liv, ace_glu_gen, ace_sulf_gen, NAPQI_glu_gen, NAPQI_in_liv = L.step(ace_to_liver)
     
-    BS.step_met_to_kidneys(ace_in_liv, ace_glu_gen, ace_sulf_gen)
+    BS.step_met_to_kidneys(ace_in_liv, ace_glu_gen, ace_sulf_gen, NAPQI_glu_gen)
     
     #append all values being kept track of
     blood_ace_list.append(BS.ace_in_sys)
     liver_ace_list.append(ace_in_liv)
     ace_glu_list.append(BS.ace_glu_in_sys)
     ace_sulf_list.append(BS.ace_sulf_in_sys)
+    NAPQI_list.append(NAPQI_in_liv)
+    NAPQI_glu_list.append(BS.NAPQI_glu_in_sys)
     
+
 plt.plot(time_steps, blood_ace_list, label='blood acetaminophen')
 plt.plot(time_steps, liver_ace_list, label='liver acetaminophen')
 plt.plot(time_steps, ace_glu_list, label='ace-glu')
 plt.plot(time_steps, ace_sulf_list, label='ace-sulf')
+plt.plot(time_steps, NAPQI_list, label='NAPQI')
+plt.plot(time_steps, NAPQI_glu_list, label='NAPQI-glu')
 plt.legend()
 
 plt.show()

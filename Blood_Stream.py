@@ -28,13 +28,13 @@ step before liver metabolization
 """
 def step_ace_to_liver(absorbedAmount = 0):
     global ace_in_sys
-    print("blood stream recieves acetaminophen from digestive system")
+    #print("blood stream recieves acetaminophen from digestive system")
     ace_in_sys += absorbedAmount
-    print("blood stream sends acetaminophen to liver")
+    #print("blood stream sends acetaminophen to liver")
     change = change_in_ace()
     
     
-    print("change in ace: ", change, "ace in blood: " , ace_in_sys, "ace in liver: ", ace_in_liver)
+    #print("change in ace: ", change, "ace in blood: " , ace_in_sys, "ace in liver: ", ace_in_liver)
     
     return change
     #print("blood stream takes metabolites from liver")
@@ -44,11 +44,13 @@ def step_ace_to_liver(absorbedAmount = 0):
 """
 step after liver metabolization
 """
-def step_met_to_kidneys(liver_ace_after_met = 0, new_ace_glu = 0, new_ace_sulf = 0):
-    global ace_in_liver, ace_glu_in_sys, ace_sulf_in_sys
+def step_met_to_kidneys(liver_ace_after_met = 0, new_ace_glu = 0, new_ace_sulf = 0, new_napqi_glu = 0):
+    global ace_in_liver, ace_glu_in_sys, ace_sulf_in_sys, NAPQI_glu_in_sys
+    
     ace_in_liver = liver_ace_after_met
     ace_glu_in_sys += new_ace_glu
     ace_sulf_in_sys += new_ace_sulf
+    NAPQI_glu_in_sys += new_napqi_glu
     #print("blood stream takes metabolites from liver")
     #print("blood stream sends metabolites to kidneys")
     

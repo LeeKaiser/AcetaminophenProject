@@ -13,6 +13,7 @@ import numpy as np
 import ace_global_vars as ACE
 import Digestive_System as DS
 import Blood_Stream as BS
+import Kidneys as K
 import Liver as L
 import matplotlib.pyplot as plt
 
@@ -35,6 +36,11 @@ ace_glu_list = []
 ace_sulf_list = []
 NAPQI_list = []
 NAPQI_glu_list = []
+urine_vol_list = []
+urine_ace_list = []
+urine_ace_glu_list = []
+urine_ace_sulf_list = []
+urine_NAPQI_glu_list = []
 
 #iterate through each time step to run parts of simulation
 for i in time_steps:
@@ -44,6 +50,7 @@ for i in time_steps:
     ace_in_liv, ace_glu_gen, ace_sulf_gen, NAPQI_glu_gen, NAPQI_in_liv = L.step(ace_to_liver)
     
     BS.step_met_to_kidneys(ace_in_liv, ace_glu_gen, ace_sulf_gen, NAPQI_glu_gen)
+    kidney_out = K.step(60 * time_interval)
     
     #append all values being kept track of
     blood_ace_list.append(BS.ace_in_sys)
@@ -54,6 +61,8 @@ for i in time_steps:
     NAPQI_glu_list.append(BS.NAPQI_glu_in_sys)
     stomach_ace_list.append(DS.get_stomach_amount())
     intest_ace_list.append(DS.get_intestine_amount())
+    urine_vol_list.append(K.urine_volume_list[-1])
+    urine_ace_list.append(K.urine_ace_list[-1])
     
 
 plt.plot(time_steps, blood_ace_list, label='blood acetaminophen')
@@ -73,4 +82,9 @@ plt.show()
 
 plt.plot(time_steps, stomach_ace_list, label='stomach acetaminophen')
 plt.plot(time_steps, intest_ace_list, label='intestine acetaminophen')
+plt.legend()
+plt.show()
+
+plt.plot(time_steps, urine_ace_list, label='urine acetaminophen (mg/step)')
+plt.legend()
 plt.show()

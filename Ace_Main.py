@@ -44,7 +44,8 @@ urine_NAPQI_glu_list = []
 
 #iterate through each time step to run parts of simulation
 for i in time_steps:
-    print("T: " , i)
+    #print("T: " , i)
+    # run all step methods
     ace_to_blood = DS.step(60 * time_interval)
     ace_to_liver = BS.step_ace_to_liver(ace_to_blood)
     ace_in_liv, ace_glu_gen, ace_sulf_gen, NAPQI_glu_gen, NAPQI_in_liv = L.step(ace_to_liver)
@@ -62,29 +63,29 @@ for i in time_steps:
     stomach_ace_list.append(DS.get_stomach_amount())
     intest_ace_list.append(DS.get_intestine_amount())
     urine_vol_list.append(K.urine_volume_list[-1])
-    urine_ace_list.append(K.urine_ace_list[-1])
+    urine_ace_list.append(sum(K.urine_ace_list))
     
-
+#generate plots
 plt.plot(time_steps, blood_ace_list, label='blood acetaminophen')
 plt.plot(time_steps, liver_ace_list, label='liver acetaminophen')
 plt.plot(time_steps, ace_glu_list, label='ace-glu')
 plt.plot(time_steps, ace_sulf_list, label='ace-sulf')
 
-plt.legend()
+#plt.legend()
 
-plt.show()
+#plt.show()
 
 plt.plot(time_steps, NAPQI_list, label='NAPQI')
 plt.plot(time_steps, NAPQI_glu_list, label='NAPQI-glu')
-plt.legend()
+#plt.legend()
 
-plt.show()
+#plt.show()
 
 plt.plot(time_steps, stomach_ace_list, label='stomach acetaminophen')
 plt.plot(time_steps, intest_ace_list, label='intestine acetaminophen')
-plt.legend()
-plt.show()
+#plt.legend()
+#plt.show()
 
-plt.plot(time_steps, urine_ace_list, label='urine acetaminophen (mg/step)')
+plt.plot(time_steps, urine_ace_list, label='urine acetaminophen (mgi )')
 plt.legend()
 plt.show()

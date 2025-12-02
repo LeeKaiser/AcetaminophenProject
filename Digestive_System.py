@@ -116,3 +116,9 @@ def intestineStep(time):
     return absorbedTotal
     
     
+    
+def get_stomach_amount():
+    return sum([amt for _, amt in stomachDoses])
+
+def get_intestine_amount():
+    return sum([amt for _, amt in intestineDoses])

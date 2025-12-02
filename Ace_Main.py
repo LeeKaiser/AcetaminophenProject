@@ -52,6 +52,8 @@ for i in time_steps:
     ace_sulf_list.append(BS.ace_sulf_in_sys)
     NAPQI_list.append(NAPQI_in_liv)
     NAPQI_glu_list.append(BS.NAPQI_glu_in_sys)
+    stomach_ace_list.append(DS.get_stomach_amount())
+    intest_ace_list.append(DS.get_intestine_amount())
     
 
 plt.plot(time_steps, blood_ace_list, label='blood acetaminophen')
@@ -67,4 +69,8 @@ plt.plot(time_steps, NAPQI_list, label='NAPQI')
 plt.plot(time_steps, NAPQI_glu_list, label='NAPQI-glu')
 plt.legend()
 
+plt.show()
+
+plt.plot(time_steps, stomach_ace_list, label='stomach acetaminophen')
+plt.plot(time_steps, intest_ace_list, label='intestine acetaminophen')
 plt.show()

@@ -10,6 +10,7 @@ Created on Mon Nov 24 18:12:51 2025
 
 # Import all other files and modules
 import numpy as np
+import numpy.ma as ma
 import ace_global_vars as ACE
 import Digestive_System as DS
 import Blood_Stream as BS
@@ -65,27 +66,44 @@ for i in time_steps:
     urine_vol_list.append(K.urine_volume_list[-1])
     urine_ace_list.append(sum(K.urine_ace_list))
     
+#convert to masked array
+blood_ace_list = ma.masked_equal(np.array(blood_ace_list), 0)
+intest_ace_list = ma.masked_equal(np.array(intest_ace_list), 0)
+stomach_ace_list = ma.masked_equal(np.array(stomach_ace_list), 0)
+liver_ace_list = ma.masked_equal(np.array(liver_ace_list), 0)
+ace_glu_list = ma.masked_equal(np.array(ace_glu_list), 0)
+ace_sulf_list = ma.masked_equal(np.array(ace_sulf_list), 0)
+NAPQI_glu_list = ma.masked_equal(np.array(NAPQI_glu_list), 0)
+NAPQI_list = ma.masked_equal(np.array(NAPQI_list), 0)
+urine_ace_list = ma.masked_equal(np.array(urine_ace_list), 0)
+
 #generate plots
+
+
 plt.plot(time_steps, blood_ace_list, label='blood acetaminophen')
 plt.plot(time_steps, liver_ace_list, label='liver acetaminophen')
+plt.legend()
+
+plt.show()
+
 plt.plot(time_steps, ace_glu_list, label='ace-glu')
 plt.plot(time_steps, ace_sulf_list, label='ace-sulf')
 
-#plt.legend()
+plt.legend()
 
-#plt.show()
+plt.show()
 
 plt.plot(time_steps, NAPQI_list, label='NAPQI')
 plt.plot(time_steps, NAPQI_glu_list, label='NAPQI-glu')
-#plt.legend()
+plt.legend()
 
-#plt.show()
+plt.show()
 
 plt.plot(time_steps, stomach_ace_list, label='stomach acetaminophen')
 plt.plot(time_steps, intest_ace_list, label='intestine acetaminophen')
-#plt.legend()
-#plt.show()
+plt.legend()
+plt.show()
 
-plt.plot(time_steps, urine_ace_list, label='urine acetaminophen (mgi )')
+plt.plot(time_steps, urine_ace_list, label='urine acetaminophen (mg)')
 plt.legend()
 plt.show()

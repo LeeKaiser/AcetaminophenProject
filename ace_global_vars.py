@@ -36,7 +36,7 @@ NAPQI_detox_max_rate = 12.0 #   mmol/hr
 
 GSH_regen_rate = 0.8        #   mmol/hr, towards baseline
 
-ethanol_amount = 0.0        #   current ethanol in sys, 0 is sober
+ethanol_amount = 10000        #   current ethanol in sys, 0 is sober
 ethanol_met_rate = 7.0      #   mmol/hr
 ethanol_induction_factor = 2.0  #   max induction value
 ethanol_induction_k = 10.0  #   amount of ethanol at which half induction occurs

@@ -27,12 +27,12 @@ output: ace_glu and ace_sulf generated, NAPQI generated, ace in system after ste
 def step(change_in_ace = 0):
     global ace_in_sys, ace_glu_gen, ace_sulf_gen, NAPQI_glu_gen, NAPQI_in_sys
     ace_in_sys += change_in_ace
-    print("liver metabolizes acetaminophen to ace_glu, ace_sulf, and NAPQI")
+    #print("liver metabolizes acetaminophen to ace_glu, ace_sulf, and NAPQI")
     metabolism()
     ethanol_clearance()
     regen_gsh()
     update_hepatocyte_viability()
-    print("then NAPQI is detoxified to NAPQI_glu")
+    #print("then NAPQI is detoxified to NAPQI_glu")
     
     return ace_in_sys, ace_glu_gen, ace_sulf_gen, NAPQI_glu_gen, NAPQI_in_sys
     

@@ -8,6 +8,7 @@ Created on Wed Nov 26 16:24:33 2025
 
 #global variables stored here to avoid circular import
 fig_title_prefix = 'test'
+fig_dir = 'test_figs'
 save_plt = True
 
 time = 30                    #   amount of time in simulation

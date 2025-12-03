@@ -10,6 +10,7 @@ Created on Mon Nov 24 18:12:51 2025
 
 # Import all other files and modules
 import numpy as np
+import os
 import numpy.ma as ma
 import ace_global_vars as ACE
 import Digestive_System as DS
@@ -78,8 +79,10 @@ NAPQI_list = ma.masked_equal(np.array(NAPQI_list), 0)
 urine_ace_list = ma.masked_equal(np.array(urine_ace_list), 0)
 
 #generate plots
-
-
+plot_directory = os.path.join(os.getcwd(), ACE.fig_dir)
+if ACE.save_plt:
+    if not os.path.exists(plot_directory):
+        os.makedirs(plot_directory)
 
 def plot_gen2(list1, list2, list_title_1, list_title_2, title, file_title):
     plt.plot(time_steps, list1, label=list_title_1)
@@ -88,7 +91,7 @@ def plot_gen2(list1, list2, list_title_1, list_title_2, title, file_title):
     plt.ylabel('mass (mg)')
     plt.title(title)
     plt.legend()
-    if ACE.save_plt: plt.savefig(ACE.fig_title_prefix + file_title)
+    if ACE.save_plt: plt.savefig(os.path.join(plot_directory, ACE.fig_title_prefix + file_title))
     plt.show()
     
 def plot_gen(list1, list_title_1, title, file_title):
@@ -97,7 +100,7 @@ def plot_gen(list1, list_title_1, title, file_title):
     plt.ylabel('mass (mg)')
     plt.title(title)
     plt.legend()
-    if ACE.save_plt: plt.savefig(ACE.fig_title_prefix + file_title)
+    if ACE.save_plt: plt.savefig(os.path.join(plot_directory, ACE.fig_title_prefix + file_title))
     plt.show()
     
 plot_gen2(blood_ace_list, liver_ace_list, 'blood acetaminophen', 'liver acetaminophen', 'Blood and Liver acetaminophen levels over time', '_Blood_and_Liver_ace.jpg')

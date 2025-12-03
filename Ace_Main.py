@@ -43,6 +43,7 @@ urine_ace_list = []
 urine_ace_glu_list = []
 urine_ace_sulf_list = []
 urine_NAPQI_glu_list = []
+liver_damage_list = []
 
 #iterate through each time step to run parts of simulation
 for i in time_steps:
@@ -66,6 +67,7 @@ for i in time_steps:
     intest_ace_list.append(DS.get_intestine_amount())
     urine_vol_list.append(K.urine_volume_list[-1])
     urine_ace_list.append(sum(K.urine_ace_list))
+    liver_damage_list.append(ACE.liver_damage)
     
 #convert to masked array
 blood_ace_list = ma.masked_equal(np.array(blood_ace_list), 0)
@@ -84,20 +86,20 @@ if ACE.save_plt:
     if not os.path.exists(plot_directory):
         os.makedirs(plot_directory)
 
-def plot_gen2(list1, list2, list_title_1, list_title_2, title, file_title):
+def plot_gen2(list1, list2, list_title_1, list_title_2, title, file_title, xlabel = 'Hours', ylabel = 'mass (mg)'):
     plt.plot(time_steps, list1, label=list_title_1)
     plt.plot(time_steps, list2, label=list_title_2)
-    plt.xlabel('Hours')
-    plt.ylabel('mass (mg)')
+    plt.xlabel(xlabel)
+    plt.ylabel(ylabel)
     plt.title(title)
     plt.legend()
     if ACE.save_plt: plt.savefig(os.path.join(plot_directory, ACE.fig_title_prefix + file_title))
     plt.show()
     
-def plot_gen(list1, list_title_1, title, file_title):
+def plot_gen(list1, list_title_1, title, file_title, xlabel = 'Hours', ylabel = 'mass (mg)'):
     plt.plot(time_steps, list1, label=list_title_1)
-    plt.xlabel('Hours')
-    plt.ylabel('mass (mg)')
+    plt.xlabel(xlabel)
+    plt.ylabel(ylabel)
     plt.title(title)
     plt.legend()
     if ACE.save_plt: plt.savefig(os.path.join(plot_directory, ACE.fig_title_prefix + file_title))
@@ -108,3 +110,5 @@ plot_gen2(ace_glu_list, ace_sulf_list, 'ace-gluc', 'ace-sulf', 'non toxic metabo
 plot_gen2(NAPQI_list, NAPQI_glu_list, 'NAPQI', 'NAPQI-glut', 'NAPQI and NAPQI glut-conjugates over time', '_NAPQI.jpg')
 plot_gen2(stomach_ace_list, intest_ace_list, 'stomach acetaminophen', 'intestine acetaminophen', 'digestive system acetaminophen over time', '_digestive_system.jpg')
 plot_gen(urine_ace_list,  'urine acetaminophen (mg)',  'urine acetaminophen over time', '_urine_ace.jpg')
+plot_gen(liver_damage_list, 'liver damage', 'liver damage over time', '_liver_damage.jpg', ylabel = 'liver damage units')
+

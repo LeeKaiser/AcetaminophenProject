@@ -46,8 +46,14 @@ ethanol_induction_factor = 2.0  #   max induction value
 ethanol_induction_k = 10.0  #   amount of ethanol at which half induction occurs
 ethanol_GSH_compete = 0.6   #   mmol/hr tied up by ethanol metabolism
 
-liver_damage = 0.0          #   cummulative damage, arbitrary unit (bad i know)
-liver_damage_threshold = 8.0#   damage at which viability is 0
-toxicity_constant = 0.06    #   scales unmetabolized NAPQI to liver damage over time
+NAPQI_toxic_threshold = 0.05#   mg/L; below this damage is negligible
+damage_exponent = 2.0       #   exponent to make damage rise steeply above threshold
+toxicity_constant = 0.005   #   baseline damage scale (damage units per hour per normalized excess)
+
+liver_repair_rate = 0.02    #   damage units repaired per hour
+liver_damage = 0.0          #   cumulative damage 
+liver_damage_threshold = 8.0#   damage at which hepatocyte viability becomes 0
 
 hepatocyte_viability = 1.0  #   1 = fully viable, 0 = lost
+
+min_damage_increment = 1e-8

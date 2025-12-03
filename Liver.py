@@ -132,8 +132,26 @@ def metabolism():
         
     residual_conc = NAPQI_in_sys / ACE.liver_volume
     
-    damage_increment = max(0.0, residual_conc) * ACE.toxicity_constant * ACE.time_interval
-    ACE.liver_damage += damage_increment
+    threshold = ACE.NAPQI_toxic_threshold
+    if residual_conc > threshold:
+        excess = (residual_conc - threshold) / max(threshold, 1e-12)
+        normalized_excess = excess ** ACE.damage_exponent
+        
+        
+        gsh_protection = 1.0
+        
+        if ACE.GSH_amount <= ACE.GSH_baseline * ACE.GSH_min_threshold:
+            gsh_protection = 2.0
+
+        damage_rate = ACE.toxicity_constant * normalized_excess * gsh_protection
+        damage_increment = max(ACE.min_damage_increment, damage_rate * ACE.time_interval)
+        ACE.liver_damage += damage_increment
+    
+    
+    ACE.liver_damage = max(0.0, ACE.liver_damage)
+    
+    repair = ACE.liver_repair_rate * ACE.time_interval
+    ACE.liver_damage = max(0.0, ACE.liver_damage - repair)
     
     
 def regen_gsh():

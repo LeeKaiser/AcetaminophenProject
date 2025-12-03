@@ -81,7 +81,7 @@ urine_ace_list = ma.masked_equal(np.array(urine_ace_list), 0)
 
 
 
-def plot_gen(list1, list2, list_title_1, list_title_2, title, file_title):
+def plot_gen2(list1, list2, list_title_1, list_title_2, title, file_title):
     plt.plot(time_steps, list1, label=list_title_1)
     plt.plot(time_steps, list2, label=list_title_2)
     plt.xlabel('Hours')
@@ -91,15 +91,17 @@ def plot_gen(list1, list2, list_title_1, list_title_2, title, file_title):
     if ACE.save_plt: plt.savefig(ACE.fig_title_prefix + file_title)
     plt.show()
     
-plot_gen(blood_ace_list, liver_ace_list, 'blood acetaminophen', 'liver acetaminophen', 'Blood and Liver acetaminophen levels over time', '_Blood_and_Liver_ace.jpg')
-plot_gen(ace_glu_list, ace_sulf_list, 'ace-gluc', 'ace-sulf', 'non toxic metabolites over time', '_non_toxic_metabolites.jpg')
-plot_gen(NAPQI_list, NAPQI_glu_list, 'NAPQI', 'NAPQI-glut', 'NAPQI and NAPQI glut-conjugates over time', '_NAPQI.jpg')
-plot_gen(stomach_ace_list, intest_ace_list, 'stomach acetaminophen', 'intestine acetaminophen', 'digestive system acetaminophen over time', '_digestive_system.jpg')
-
-plt.plot(time_steps, urine_ace_list, label='urine acetaminophen (mg)')
-plt.xlabel('Hours')
-plt.ylabel('mass (mg)')
-plt.title('urine acetaminophen over time')
-plt.legend()
-if ACE.save_plt: plt.savefig(ACE.fig_title_prefix + '_urine_ace.jpg')
-plt.show()
+def plot_gen(list1, list_title_1, title, file_title):
+    plt.plot(time_steps, list1, label=list_title_1)
+    plt.xlabel('Hours')
+    plt.ylabel('mass (mg)')
+    plt.title(title)
+    plt.legend()
+    if ACE.save_plt: plt.savefig(ACE.fig_title_prefix + file_title)
+    plt.show()
+    
+plot_gen2(blood_ace_list, liver_ace_list, 'blood acetaminophen', 'liver acetaminophen', 'Blood and Liver acetaminophen levels over time', '_Blood_and_Liver_ace.jpg')
+plot_gen2(ace_glu_list, ace_sulf_list, 'ace-gluc', 'ace-sulf', 'non toxic metabolites over time', '_non_toxic_metabolites.jpg')
+plot_gen2(NAPQI_list, NAPQI_glu_list, 'NAPQI', 'NAPQI-glut', 'NAPQI and NAPQI glut-conjugates over time', '_NAPQI.jpg')
+plot_gen2(stomach_ace_list, intest_ace_list, 'stomach acetaminophen', 'intestine acetaminophen', 'digestive system acetaminophen over time', '_digestive_system.jpg')
+plot_gen(urine_ace_list,  'urine acetaminophen (mg)',  'urine acetaminophen over time', '_urine_ace.jpg')

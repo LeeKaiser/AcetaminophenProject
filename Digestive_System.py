@@ -10,12 +10,12 @@ Created on Mon Nov 24 18:14:42 2025
 import ace_global_vars as ACE
 import numpy as np
 
-isFed = False       #whether the individual has fasted or has eaten
+isFed = ACE.isFed       #whether the individual has fasted or has eaten
 stomachDoses = []   #Acetaminophen in the stomach
 intestineDoses = [] #Acetaminophen in the intestine
 dosesTaken = 0      #doses taken so far
 simTime = 0         #simulation time, in minutes
-Ka = 2 / 60.0       #absorption constant of ace
+Ka = ACE.absorb_constant       #absorption constant of ace
 
 """
 takes the amount of time, in minutes, of the step

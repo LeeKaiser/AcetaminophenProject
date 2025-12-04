@@ -7,17 +7,19 @@ Created on Wed Nov 26 16:24:33 2025
 """
 
 #global variables stored here to avoid circular import
-fig_title_prefix = '1250_ace'
-fig_dir = 'analysis_1'
+fig_title_prefix = 'fed'
+fig_dir = 'analysis_10'
 save_plt = False
 
-time = 24                    #   amount of time in simulation
+time = 24                    #   amount of time in simulation in hours
 time_interval = 0.01         #   amount of time passed per interval (total time steps = time/time_interval)
 
-dose_interval = 1           #   amount of time between dose
+dose_interval = 6           #   amount of time between dose
 dose_count = 1              #   amount of dose taken
 dose_amount = 650           #   amount taken per dose in mg
 
+isFed = False               #   whether the individual has fasted or has eaten
+absorb_constant = 2 / 60.0       #absorption constant of ace
 
 liver_volume = 1.5          #   volume of liver  in liters
 liver_blood_flow = 90      #   liver blood flow in liter per hr
@@ -40,7 +42,7 @@ NAPQI_detox_max_rate = 12.0 #   mmol/hr
 
 GSH_regen_rate = 0.8        #   mmol/hr, towards baseline
 
-ethanol_amount = 10000        #   current ethanol in sys, 0 is sober
+ethanol_amount = 0        #   current ethanol in sys, 0 is sober (mmol)
 ethanol_met_rate = 7.0      #   mmol/hr
 ethanol_induction_factor = 2.0  #   max induction value
 ethanol_induction_k = 10.0  #   amount of ethanol at which half induction occurs

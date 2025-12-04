@@ -7,14 +7,14 @@ Created on Wed Nov 26 16:24:33 2025
 """
 
 #global variables stored here to avoid circular import
-fig_title_prefix = 'fed'
-fig_dir = 'analysis_10'
-save_plt = False
+fig_title_prefix = 'sulf_50'
+fig_dir = 'analysis_8'
+save_plt = True
 
 time = 24                    #   amount of time in simulation in hours
 time_interval = 0.01         #   amount of time passed per interval (total time steps = time/time_interval)
 
-dose_interval = 6           #   amount of time between dose
+dose_interval = 4           #   amount of time between dose
 dose_count = 1              #   amount of dose taken
 dose_amount = 650           #   amount taken per dose in mg
 
@@ -26,9 +26,9 @@ liver_blood_flow = 90      #   liver blood flow in liter per hr
 liver_blood_volume = 1.5    #   volume of blood in liver in liter
 ace_partition_coeff = 0.669 #   partition coefficient of acetaminophen 
 
-glu_max_met_rate = 146.63      #   glucuronidation max metabolic rate in mg/hr
+glu_max_met_rate = 146.63       #   glucuronidation max metabolic rate in mg/hr
 glu_drug_con = 1041.5          #   glucuronidation drug concentration in mg/L
-sulf_max_met_rate = 3      #   sulfation max metabolic rate in mg/hr
+sulf_max_met_rate = 3 * 0.5      #   sulfation max metabolic rate in mg/hr
 sulf_drug_con = 14.7          #   sulfation drug concentration in mg/L
 p450_max_met_rate = 8.0     #   p450 max metabolic rate in mg/hr
 p450_drug_con = 120         #   p450 enzyme concentration in mg/L
